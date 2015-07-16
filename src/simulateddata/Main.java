@@ -14,15 +14,18 @@ public class Main {
 		//System.out.println(checkTown(40.714224,-72.9614523));
 		int numUsers = 3;
 		int numDays = 100;
-		String town = "Lexington";
+		String town = "Needham";
 		String state = "MA";
 		int day = 0;
 		
+		// Create users
 		ArrayList<User> users = createUsers(numUsers, town, state, numDays, day);
 		System.out.println(users);
 		
+		// Generate data for days
 		Random r = new Random();
 		for (day = 0; day < numDays; day++) {
+			System.out.println("Day: " + day);
 			if (r.nextDouble() < 0.3) {
 				ArrayList<User> newUser = createUsers(1, town, state, numDays, day);
 				if (newUser != null) {
@@ -37,17 +40,43 @@ public class Main {
 		
 		System.out.println(users);
 		
+		// Insert -1 randomly
 		for (User user : users) {
 			user.insertNoInput();
 		}
 		
 		System.out.println(users);
 		
+		// Fix locations with -1 input
 		for (User user : users) {
 			user.fixInput();
 		}
 		
 		System.out.println(users);
+		
+		// Sum up # of S, I, and R users on each day
+		int[][] data = getSums(numDays, users);
+		int[] susceptible = data[0];
+		int[] infected = data[1];
+		int[] recovered = data[2];
+		
+		System.out.println(User.printArray(susceptible));
+	}
+	
+	public static int[][] getSums (int numDays, ArrayList<User> users) {
+		int[] susceptible = new int[numDays];
+		int[] infected = new int[numDays];
+		int[] recovered = new int[numDays];
+		int[][] data = {susceptible, infected, recovered};
+		
+		for (int day = 0; day < numDays; day++) {
+			for (User user : users) {
+				int c = user.getCondition(day);
+				data[c][day]++;
+			}
+		}
+		
+		return data;
 	}
 	
 	private static ArrayList<User> createUsers (int numUsers, String town, String state, int numDays, int currDay) throws IOException {

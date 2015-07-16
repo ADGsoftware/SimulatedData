@@ -16,6 +16,10 @@ public class User {
 		nextCondition(currDay);
 	}
 	
+	public int getCondition (int day) {
+		return days[day];
+	}
+	
 	public void nextCondition (int day) {
 		Random r = new Random();
 		if (day > 2 && days[day - 1] == 1 && days[day - 2] == 1 && days[day - 3] == 1) {
@@ -35,7 +39,7 @@ public class User {
 		}
 	}
 	
-	public String printArray (int[] array) {
+	public static String printArray (int[] array) {
 		if (array.length == 0) {
 			return "[]";
 		}
