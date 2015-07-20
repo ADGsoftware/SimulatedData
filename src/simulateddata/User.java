@@ -66,7 +66,12 @@ public class User {
 		}
 		for (int day = 1; day < days.length; day++) {
 			if (days[day] == -1) {
-				days[day] = days[day - 1];
+				if (day > 2 && days[day - 1] == 1 && days[day - 2] == 1 && days[day - 3] == 1) {
+					days[day] = 2;
+				}
+				else {
+					days[day] = days[day - 1];
+				}
 			}
 		}
 	}
