@@ -11,11 +11,15 @@ import java.util.Random;
 
 public class Main {
 	public static void main (String[] args) throws MalformedURLException, IOException {
-		//System.out.println(checkTown(40.714224,-72.9614523));
-		int numUsers = 3;
-		int numDays = 100;
+		int numUsers = 40;
+		int numDays = 10;
 		String town = "Needham";
 		String state = "MA";
+		run(numUsers, numDays, town, state);
+	}
+	
+	public static void run (int numUsers, int numDays, String town, String state) throws MalformedURLException, IOException {
+		//System.out.println(checkTown(40.714224,-72.9614523));
 		int day = 0;
 		
 		// Create users
@@ -60,7 +64,7 @@ public class Main {
 		int[] infected = data[1];
 		int[] recovered = data[2];
 		
-		System.out.println(User.printArray(susceptible));
+		System.out.println(User.printArray(infected));
 	}
 	
 	public static int[][] getSums (int numDays, ArrayList<User> users) {
